@@ -1,0 +1,31 @@
+{
+  "name": "datasafe",
+  "version": "1.0.0",
+  "description": "an app used to keep user data up to date and safe",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arindam229/datasafe.git"
+  },
+  "author": "Arindam Verma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arindam229/datasafe/issues"
+  },
+  "homepage": "https://github.com/Arindam229/datasafe#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.13.0"
+  }
+}
