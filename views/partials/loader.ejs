@@ -1,0 +1,113 @@
+<style>
+    #overlay{
+    position: absolute;
+    z-index: 999999;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#ovarlay h1{
+    animation-name: loader;
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+}
+@keyframes loader {
+    0%{
+        width:0%;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    25%{
+        width:55%;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    50%{
+        width:100%;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    75%{
+        width:55%;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+    100%{
+        width:0%;
+        overflow: hidden;
+        text-wrap: nowrap;
+    }
+}
+@media only screen and (max-width: 495px){
+    .page{
+        width: 100vw;
+    }
+    #sidetext h1{
+        font-size: 9.1vmin;
+    }
+    #page1 img{
+        height: 75vh;
+        position: absolute;
+        z-index: -1;
+        right: 0;
+        top: -36vh;
+    }
+    #page3 img{
+        height: 20vh;
+    }
+    #about{
+        flex-direction: column;
+    }
+    #textabout{
+        width: 100vw;
+        text-align: center;
+        padding-top: 20px;
+    }
+}
+</style>
+<div id="overlay">
+    <div>
+      <h1>Datasafe</h1>
+      <div id="progress"></div>
+    </div>
+    <div id="progstat"></div>
+  </div>
+  <script>
+    (function(){
+function id(v){ return document.getElementById(v); }
+function loadbar() {
+var ovrl = id("overlay"),
+    prog = id("progress"),
+    stat = id("progstat"),
+    img = document.images,
+    c = 0,
+    tot = img.length;
+if(tot == 0) return doneLoading();
+
+function imgLoaded(){
+  c += 1;
+  var perc = ((100/tot*c) << 0) +"%";
+  prog.style.width = perc;
+  stat.innerHTML = "Loading "+ perc;
+  if(c===tot) return doneLoading();
+}
+function doneLoading(){
+  ovrl.style.opacity = 0;
+  setTimeout(function(){ 
+    ovrl.style.display = "none";
+  }, 1200);
+}
+for(var i=0; i<tot; i++) {
+  var tImg     = new Image();
+  tImg.onload  = imgLoaded;
+  tImg.onerror = imgLoaded;
+  tImg.src     = img[i].src;
+}    
+}
+document.addEventListener('DOMContentLoaded', loadbar, false);
+}());
+</script>
