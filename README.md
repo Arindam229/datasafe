@@ -14,7 +14,6 @@ Database:
 
 4)**Congrats** ,Your Database is **Ready!!!**
 
-4)Your Data 
 
 Backend and Frontend:
 
