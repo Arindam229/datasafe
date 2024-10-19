@@ -12,8 +12,6 @@ Database:
 
 3)run the commands in dbsetup.sql given in the repository
 
-4)**Congrats** ,Your Database is **Ready!!!**
-
 
 Backend and Frontend:
 
@@ -26,7 +24,6 @@ npm i
 
 2)setup the environment variables in .env file in similar format as .env.sample given in the repository.
 
-3)**Congrats** ,Your Website is **Ready!!!**
 
 **You can Always Run The Program using:**
 ```
