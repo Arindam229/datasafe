@@ -1,4 +1,4 @@
-# DataSafe - Dashboard to anaylse all leaked data 
+# DataSafe - Dashboard to analyse all leaked data 
 DataSafe is an advanced dashboard designed to help individuals and organizations track and analyze leaked data incidents. 
 It aggregates compromised data from various breaches(currently only one but can be increased) and provides real-time insights into exposed information, such as passwords, emails, or sensitive files.
 With an intuitive interface, users can evaluate data exposure risks, and receive alerts about new breaches. 
