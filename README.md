@@ -5,18 +5,28 @@ With an intuitive interface, users can evaluate data exposure risks, and receive
 
 ## To Install this Program in your pc:
 Database:
+
 1)install postgres in your pc
+
 2)make a database named 'datasafe'
+
 3)run the commands in dbsetup.sql given in the repository
+
 4)**Congrats** ,Your Database is **Ready!!!**
+
 4)Your Data 
+
 Backend and Frontend:
+
 1)open terminal cd to the local repo file and run (to install all required dependencies):
+
 ```
 nvm use node
 npm i
 ```
+
 2)setup the environment variables in .env file in similar format as .env.sample given in the repository.
+
 3)**Congrats** ,Your Website is **Ready!!!**
 
 do suggest some changes if necessary...
