@@ -28,4 +28,8 @@ npm i
 
 3)**Congrats** ,Your Website is **Ready!!!**
 
+**You can Always Run The Program using:**
+```
+nodemon index.js
+```
 do suggest some changes if necessary...
