@@ -6,6 +6,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import session from "express-session";
 import env from "dotenv";
+import GoogleStrategy from "passport-google-oauth2";
 
 const app = express();  
 const saltRounds = 10;
@@ -54,6 +55,9 @@ app.get('/login', (req, res) => {
 
 app.get('/signup', (req, res) => {
     res.render('signup.ejs');
+});
+app.get('/dashboard', (req, res) => {
+        res.render("dashboard.ejs");
 });
 app.get("/logout", (req, res) => {
     req.logout(function (err) {
