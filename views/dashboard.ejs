@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard-a full view of your data</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Google', 4],
+        ]);
+
+        // Set chart options
+        var options = {'title':'How much data is leaked?',
+                       'width':'1em',
+                       'height':'1em'};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      const safetyAdvices = [
+  "Use strong, unique passwords for each account.",
+  "Enable two-factor authentication (2FA).",
+  "Regularly update your passwords.",
+  "Avoid using public Wi-Fi for sensitive activities.",
+  "Install reliable antivirus software.",
+  "Use encryption for sensitive data.",
+  "Be cautious of phishing emails and links.",
+  "Regularly back up important data.",
+  "Limit access to sensitive information.",
+  "Use a VPN when browsing on public networks.",
+  "Monitor your accounts for suspicious activity.",
+  "Don't store sensitive information in email inboxes.",
+  "Keep software and systems up to date.",
+  "Educate employees on cybersecurity practices.",
+  "Use firewalls to protect networks.",
+  "Encrypt email communications.",
+  "Implement multi-layer security protocols.",
+  "Regularly review permissions on accounts and apps.",
+  "Use secure file-sharing tools.",
+  "Implement security audits regularly.",
+  "Keep your operating system up to date.",
+  "Secure all endpoints with endpoint protection software.",
+  "Ensure physical security of servers and computers.",
+  "Use access control systems for sensitive areas.",
+  "Set up intrusion detection systems.",
+  "Don't click on suspicious ads or pop-ups.",
+  "Report suspected breaches immediately.",
+  "Use password managers for secure password storage.",
+  "Limit use of USB drives and other external storage.",
+  "Disable unused services or ports on your network.",
+  "Regularly review and update your security policies.",
+  "Restrict administrative privileges to necessary users.",
+  "Log out from sessions when finished.",
+  "Use biometric authentication where possible.",
+  "Ensure your mobile devices are secure.",
+  "Conduct regular vulnerability assessments.",
+  "Review security patches and updates frequently.",
+  "Monitor network traffic for unusual activity.",
+  "Avoid using the same password across multiple platforms.",
+  "Use two-factor authentication (2FA) for critical accounts.",
+  "Implement data loss prevention (DLP) systems.",
+  "Don't share sensitive information over social media.",
+  "Ensure secure destruction of sensitive data.",
+  "Perform penetration testing regularly.",
+  "Secure cloud services with encryption and strong access controls.",
+  "Ensure all devices used for work are secure.",
+  "Educate users on safe web browsing habits.",
+  "Implement a robust incident response plan.",
+  "Limit data retention to only necessary periods.",
+  "Disable auto-complete features for sensitive fields.",
+  "Use secure FTP for transferring files.",
+  "Don't install software from untrusted sources.",
+  "Monitor dark web for compromised credentials.",
+  "Ensure wireless networks are secured.",
+  "Limit access to sensitive systems based on role.",
+  "Conduct regular employee security training.",
+  "Set up monitoring alerts for abnormal activity.",
+  "Ensure that encryption keys are securely stored.",
+  "Change default passwords on all devices.",
+  "Avoid reusing passwords for critical accounts.",
+  "Have a business continuity plan in case of breach.",
+  "Always lock your devices when unattended.",
+  "Monitor employee access to sensitive data.",
+  "Require strong passwords for all employees.",
+  "Secure mobile devices with encryption and PINs.",
+  "Disable remote access if not required.",
+  "Use secure coding practices in application development.",
+  "Stay updated on the latest security threats.",
+  "Implement secure login methods for remote work.",
+  "Isolate sensitive data from public networks.",
+  "Ensure USB devices are scanned before use.",
+  "Review third-party security policies.",
+  "Use behavioral analytics for detecting breaches.",
+  "Set automatic logouts for inactive sessions.",
+  "Implement IP whitelisting for sensitive systems.",
+  "Avoid sharing passwords through email or messaging apps.",
+  "Regularly audit access logs for suspicious activity.",
+  "Ensure proper encryption of databases.",
+  "Use passwordless authentication methods when available.",
+  "Disable unused user accounts promptly.",
+  "Review cloud provider security features.",
+  "Do not allow employees to install unauthorized apps.",
+  "Use sandboxing for potentially dangerous files.",
+  "Restrict access to sensitive systems during off-hours.",
+  "Enable advanced threat protection for email.",
+  "Conduct tabletop exercises for breach scenarios.",
+  "Review employee access levels regularly.",
+  "Enable auto-updates for all software when possible.",
+  "Ensure data backups are secure and encrypted.",
+  "Secure endpoints with advanced threat protection.",
+  "Require unique credentials for each system.",
+  "Keep up-to-date with legal requirements for data security.",
+  "Use managed detection and response (MDR) services.",
+  "Monitor privileged user activity closely.",
+  "Isolate critical systems from general networks.",
+  "Implement zero-trust architecture.",
+  "Review privacy policies of third-party apps.",
+  "Regularly review and update disaster recovery plans.",
+  "Ensure software dependencies are secure.",
+  "Avoid connecting to open or unsecured networks."
+];
+
+// Function to select 5 random advices from the array
+function getRandomAdvices() {
+  let selectedAdvices = [];
+  let advicesCopy = [...safetyAdvices]; // Copy array to avoid modifying original
+  for (let i = 0; i < 5; i++) {
+    const randomIndex = Math.floor(Math.random() * advicesCopy.length);
+    selectedAdvices.push(`${i+1}.) ${advicesCopy.splice(randomIndex, 1)[0]}`); // Remove and add advice
+  }
+  return selectedAdvices;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const advice = getRandomAdvices();
+  document.querySelector(".advice").innerHTML = advice.join("\n");
+});
+</script>
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="mainimg">
+            <img src="images/markus-spiske-hvSr_CVecVI-unsplash.jpg" alt="">
+        </div>
+        <div class="dashboard">
+            <h2>See your data being leaked</h2>
+            <div class="maingrid radius">
+                <div class="grid-item one radius">
+                    <div class="flex1 radius">
+                        <div id="chart_div"></div>
+                    </div>
+                    <div class="flex2 radius">
+                        <h1>Is your Data Safe??</h1>
+                        <h2>Your data was leaked by</h2>
+                        <% if(sites.length>0){
+                            for(var i=0;i<sites.length;i++){%>
+                            <p><%= sites[i] %></p>
+                       <% }}else{ %>
+                           <p>No data leaked</p>
+                       <% } %>
+                       <h1>Advices</h1>
+                       <pre class="advice"></pre>
+                    </div>
+                </div>
+                <div class="grid-item radius">
+                    <div class="header">
+                        <h2>App Details</h2></div>
+                    <div class="content">
+                    <div class="app">
+                        <img src="images/google.png" alt="image google">
+                        <h1>Google</h1>
+                    </div>
+                    <div class="info">
+                        <p>Name: <%= googledata.name %></p>
+                        <p>Email: <%= googledata.email %></p>
+                        <p>Family Name: <%= googledata.familyname %></p>
+                        <p>Photos: <%= googledata.photos %></p>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <form action="/logout">
+            <button class="login-button" type="submit" method="get">Logout</button>
+                </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -20,11 +20,12 @@
   .mainimg{
     position: absolute;
     height: 100vh;
-    left: 10%;
-    bottom: -40vh;
   }
   .mainimg>img{
     height: 100vh;
+    -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  opacity: 0.5;
   }
   .login-container{
     display: flex;

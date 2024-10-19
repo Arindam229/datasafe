@@ -15,6 +15,9 @@ body{
 }
 .mainimg>img{
     height: 120vh;
+    -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  opacity: 0.5;
 }
 .maincontent{
     height: 100vh;
@@ -29,7 +32,27 @@ body{
 }
 .maincontent>div>p{
     font-size: 1.3rem;
+    display: inline-block;
     opacity: 0.6;
+    border-right: 1px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: cursor .4s step-end infinite alternate;
+    animation: typing 3s steps(43) infinite alternate;
+    animation-delay: 0s, 2s;
+}
+@keyframes typing{
+    from{
+        width: 0%;
+    }
+    to{
+        width: 100%;
+    }
+}
+@keyframes cursor{
+    50%{
+        border-color: transparent
+    }
 }
 .maincontent>div>h1{
     font-size: 3rem;
@@ -37,7 +60,8 @@ body{
 }
 .btns{
     display: flex;
-    gap: 8vw;
+    justify-content:safe;
+    gap: 1vw;
     padding: 2vh;
 }
 .btns>a{

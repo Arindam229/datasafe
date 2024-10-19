@@ -8,6 +8,7 @@ import session from "express-session";
 import env from "dotenv";
 import GoogleStrategy from "passport-google-oauth2";
 import TwitterStrategy from "passport-twitter";
+import axios from 'axios';
 
 const app = express();  
 const saltRounds = 10;
@@ -28,6 +29,36 @@ app.use(express.static('public'));
 
 app.use(passport.initialize());
 app.use(passport.session());
+async function checkEmailInLeakLookup(email) {
+  const apiKey = '7eae09375ff3e99ddd7e6189c93989c0';  // Replace with your actual API key
+  const url = 'https://leak-lookup.com/api/search';
+  
+  const data = {
+    key: apiKey,
+    type: 'email_address',
+    query: email
+  };
+  let sites = []
+  try {
+    const response = await axios.post(url, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'  // Set content type for form data
+      }
+    });
+    console.log(response.data.message)
+    if(response.data.message == 'REQUEST LIMIT REACHED'){ return sites = ['free api limit reached'] }
+    for (let key in response.data.message){
+      sites.push(key)
+    };
+  } catch (error) {
+    if (error.response) {
+      console.error('Error:', error.response.data.message);
+    } else {
+      console.error('Error fetching data:', error.message);
+    }
+  }
+  return sites
+}
 
 const db = new pg.Client({
   user: process.env.PG_USER,
@@ -56,8 +87,21 @@ app.get('/login', async (req, res) => {
 app.get('/signup', (req, res) => {
     res.render('signup.ejs');
 });
-app.get('/dashboard', (req, res) => {
-        res.render("dashboard.ejs");
+app.get('/dashboard', async (req, res) => {
+    if (req.isAuthenticated()) {
+      let email  = req.user.email;
+      let googledata = await db.query("SELECT * FROM googleinfo WHERE email = $1", [
+        email,
+      ])
+      let sites = await checkEmailInLeakLookup(email);
+      console.log(googledata.rows[0]);
+      res.render("dashboard.ejs", {googledata:googledata.rows[0]
+        ,sites:sites
+      });
+    }else{
+        res.redirect("/login");
+    }
+        
 });
 
 app.get("/logout", (req, res) => {
@@ -74,10 +118,6 @@ app.get("/logout", (req, res) => {
        console.log(isGoogle);
         res.render("apps.ejs", {isGoogle});
       } else {
-        isGoogle = false;
-        await db.query("UPDATE users SET google = $1 WHERE email = $2", [
-          null,req.user.email
-        ])
         res.redirect("/login");
       }
 });
@@ -143,6 +183,12 @@ app.post(
       async (accessToken, refreshToken, profile, cb) => {
         try {
           console.log(profile);
+          await db.query("INSERT INTO googleinfo(name, email, familyName, photos) VALUES ($1, $2, $3, $4) ON CONFLICT (email) DO UPDATE SET name = $1, email = $2,familyName = $3,photos = $4", [
+            profile.name.givenName,
+            profile.email,
+            profile.name.familyName,
+            profile.photos[0].value
+          ])
           const result = await db.query("SELECT * FROM users WHERE email = $1", [
             profile.email,
           ]);
@@ -204,3 +250,5 @@ app.post(
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 })
+
+

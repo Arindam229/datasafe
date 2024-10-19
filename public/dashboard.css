@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    background-color: black;
+    background-size: cover;
+    height: 100vh;
+    scroll-behavior: smooth;
+    color: white;
+  }
+  .advice{
+    font-family: "M PLUS 1 Code", monospace;
+    text-wrap: wrap;
+  }
+  .main{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+  }
+  .mainimg{
+    position: absolute;
+    height: 100vh;
+  }
+  .mainimg>img{
+    height: 100vh;
+    -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  opacity: 0.5;
+  }
+  .heading{
+    display: flex ;
+  }
+  .dashboard{
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    padding: 2vh;
+    gap: 2vh;
+  }
+  .dashboard>h1{
+    font-size: 2.8rem;
+    font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  }
+  .dashboard>h2{
+    font-size: 1.2rem;
+    font-family: "Press Start 2P", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  }
+  .maingrid{
+    display: grid;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-template-columns: (3fr 1fr);
+    grid-template-rows: 3fr 1fr;
+    gap: 2vh;
+    padding: 3vh;
+    height: 80vh;
+    width: 90vw;
+    background-color: #212121;
+    border-radius: 20px;
+  }
+  .grid-item{
+    background-color: rgb(57, 57, 57);
+    font-family: "M PLUS 1 Code", monospace;
+  }
+  .header{
+    height: 4vh;
+    width: 100%;
+    border-bottom: 2px solid white;
+  }
+  .content{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .flex1{
+    width: 75%;
+    height: 100%;   
+    background-color: rgb(57, 57, 57);
+  }
+  .flex2{
+    width: 25%;
+    height: 100%;
+    background-color: rgb(57, 57, 57);
+  }
+  .one{
+    display: flex;
+    gap: 2vw;
+    background-color: transparent !important;
+  }
+  .radius{
+    border-radius: 12px;
+  }
+  .login-button {
+    padding: 19px;
+    background: transparent;
+    color: white;
+    font-size: 18px;
+    border:2px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+  }
+  .login-button:hover {
+    background: #ffffff;
+    color: black;
+  }
+  .app{
+    padding: 2vh;
+    height: 100%;
+    border-right: 2px solid rgb(105, 105, 105);
+  }
+  .app>img{
+   width: 2vw;
+  }
+  .info{
+    margin-left: 10vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+.info>p{
+    font-size: 1.15rem;  
+}
+.flex2{
+    padding: 2vh;
+}
+.flex1{
+    align-items: center;
+    flex-direction: column;
+    padding: 2vh;
+}
+#chart_div{
+    width: 100%;
+    height: 100%;
+    border-radius: 40px;
+}

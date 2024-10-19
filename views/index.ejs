@@ -8,11 +8,39 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        const taglines = [
+  "Protecting Your Data, Safeguarding Your Future",
+  "DataSafe: Where Security Meets Trust",
+  "Fortifying Your Digital World",
+  "Your Data's Safety is Our Priority",
+  "Secure Your Data, Secure Your Life",
+  "DataSafe: Locking Down Your Information",
+  "Because Your Data Deserves the Best",
+  "DataSafe: Built for Your Protection",
+  "Safeguarding the Present, Securing the Future",
+  "Trusted Data Protection, Every Time",
+  "DataSafe: The Shield for Your Digital Assets",
+  "Your Data, Our Commitment to Safety",
+  "Defending Your Data in the Digital Age",
+  "Secure Solutions for a Connected World",
+  "DataSafe: Security You Can Count On",
+  "Your Privacy, Our Mission",
+  "DataSafe: Keeping Your Information Under Lock and Key",
+  "For a Safer Digital Tomorrow",
+  "Data Protection You Can Trust",
+  "DataSafe: Guarding What Matters Most"
+];
+        setInterval(() => {
+            const randomTagline = taglines[Math.floor(Math.random() * taglines.length)];
+        document.querySelector("p").textContent = randomTagline;
+        }, 6000);
+    </script>
 </head>
 <body>
     <% 'loader.ejs' %>
     <div class="mainimg">
-        <img src="images/tim-schmidbauer-TE_lOmkKq04-unsplash.jpg" alt="">
+        <img src="images/markus-spiske-hvSr_CVecVI-unsplash.jpg" alt="">
     </div>
     <div class="maincontent">
         <div>
