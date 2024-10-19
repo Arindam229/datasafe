@@ -7,6 +7,7 @@ import { Strategy } from "passport-local";
 import session from "express-session";
 import env from "dotenv";
 import GoogleStrategy from "passport-google-oauth2";
+import TwitterStrategy from "passport-twitter";
 
 const app = express();  
 const saltRounds = 10;
@@ -18,7 +19,6 @@ app.use(
       resave: false,
       saveUninitialized: true,
       cookie: {
-        maxAge: 1000 * 30 ,
       }
     })
   );
@@ -49,8 +49,8 @@ app.get('/', (req, res) => {
     res.render('index.ejs');
 });
 
-app.get('/login', (req, res) => {
-    res.render('login.ejs');
+app.get('/login', async (req, res) => {
+    res.render('login.ejs');    
 });
 
 app.get('/signup', (req, res) => {
@@ -59,6 +59,7 @@ app.get('/signup', (req, res) => {
 app.get('/dashboard', (req, res) => {
         res.render("dashboard.ejs");
 });
+
 app.get("/logout", (req, res) => {
     req.logout(function (err) {
       if (err) {
@@ -67,10 +68,16 @@ app.get("/logout", (req, res) => {
       res.redirect("/");
     });
   });
-  app.get('/apps', (req, res) => {
+  app.get('/apps', async (req, res) => {
     if (req.isAuthenticated()) {
-        res.render("apps.ejs");
+       let isGoogle = req.user.google=="done";
+       console.log(isGoogle);
+        res.render("apps.ejs", {isGoogle});
       } else {
+        isGoogle = false;
+        await db.query("UPDATE users SET google = $1 WHERE email = $2", [
+          null,req.user.email
+        ])
         res.redirect("/login");
       }
 });
@@ -113,6 +120,47 @@ app.post(
       console.log(err);
     }
   });
+  app.get(
+    "/auth/google",
+    passport.authenticate("google", { scope: ["profile", "email"] })
+  );
+  app.get(
+    "/auth/google/apps",
+    passport.authenticate("google", {
+      successRedirect: "/apps",
+      failureRedirect: "/login",
+    })
+  );
+  passport.use(
+    "google",
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://localhost:3000/auth/google/apps",
+        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+      },
+      async (accessToken, refreshToken, profile, cb) => {
+        try {
+          console.log(profile);
+          const result = await db.query("SELECT * FROM users WHERE email = $1", [
+            profile.email,
+          ]);
+          if (result.rows.length >0) {
+            const newUser = await db.query(
+              "UPDATE users SET google = $1 WHERE email = $2 RETURNING *",
+              ["done", profile.email]
+            );
+            return cb(null, newUser.rows[0]);
+          } else {
+            return cb(null, result.rows[0]);
+          }
+        } catch (err) {
+          return cb(err);
+        }
+      }
+    )
+  );
   passport.use("local",
     new Strategy(async function verify(username, password, cb) {
       try {
